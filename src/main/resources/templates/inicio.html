@@ -31,8 +31,7 @@
                 <div class="card-body aqua-gradient">
                     <img th:src="@{static/logo.png}"alt="imagenLogo" class="img-fluid rounded-circle w-50" >
                     <h3 class="text-white mt-2">Bienvenido a Teletravel</h3>
-                    <form th:href="@{/validarusuario}" method="post">
-
+                    <form th:action="@{/validarusuario}" method="post">
                     <input type="" name="email" class="form-control mt-3" placeholder="Correo">
                     <input type="" name="password" class="form-control mt-3" placeholder="Contraseña">
 

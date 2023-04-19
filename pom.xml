@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>LAB3_20203368_Final</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lab4</name>
-    <description>lab4</description>
+    <name>LAB3_20203368_Final</name>
+    <description>LAB3_20203368_Final</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -33,13 +33,6 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.0.32</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
