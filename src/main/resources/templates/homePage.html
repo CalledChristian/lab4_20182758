@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -74,21 +74,44 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-6 mt-2 ml-2 mb-4">
+      <div class="col-sm-6 mt-2 ml-2 mb-4" th:each="vuelo:${listaVuelos}">
         <div class="card text-center border-white">
           <div class="card-body">
-            <h5 class="card-title mt-3">Lima - Bogota <span class="text-danger"><b>($120.00)</b></span></h5>
-            <p class="text-success"><b>Star Peru - 2I</b> </p>
-            <p>Definitivamente el turismo en Bogotá en más que Monserrate y la Candelaria, hay muchas excursiones por
-              senderos
-              mágicos que puedes realizar. Estas actividades también se conocen como: senderismo, excursionismo,
-              caminata, montañismo,
-              hiking o trekking.</p>
-            <button class="btn btn-success btn-lg btn-block">Comprar</button>
+            <h5 class="card-title mt-3">
+                <span th:text="|${vuelo.origen}-${vuelo.destino}|"></span>
+                <span class="text-danger" th:text="|('$'${vuelo.precio})|"></span>
+            </h5>
+            <p class="text-success"><b th:text="|${vuelo.aerolinea.nombre}-${vuelo.aerolinea.codigo}|"></b></p>
+            <p th:text="${vuelo.descripcion}"></p>
+
+              <form method="post" th:action="@{/reservarvuelo}">
+                  <input th:value="${usuario.getIdUser()}" name="iduser" hidden>
+                  <input th:value="${vuelo.getIdVuelo()}" name="idvuelo" hidden>
+                  <input th:value="${vuelo.precio}" name="precio" hidden>
+                  <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#myModal">Comprar</button>
+              </form>
           </div>
         </div>
       </div>
     </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel">Compra realizada con éxito</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                      Su compra ha sido realizada con éxito. ¡Gracias por su preferencia!
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  </div>
+              </div>
+          </div>
+      </div>
 
   </div>
 

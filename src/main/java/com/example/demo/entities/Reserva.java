@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.print.attribute.DateTimeSyntax;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 
 @Getter
@@ -20,10 +21,10 @@ public class Reserva {
     private Integer idReserva;
 
     @Column(name = "fecha_reserva", nullable = false)
-    private DateTimeSyntax fecha_reserva;
+    private Timestamp fecha_reserva;
 
     @Column(name = "precio_total", nullable = false)
-    private DecimalFormat precio_total;
+    private Float precio_total;
 
     @Column(name = "estado_pago",nullable = false)
     private String estado_pago;

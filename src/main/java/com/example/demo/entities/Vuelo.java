@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.print.attribute.DateTimeSyntax;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 
 @Getter
@@ -25,16 +26,16 @@ public class Vuelo {
     private String destino;
 
     @Column(name = "fecha_salida", nullable = false)
-    private DateTimeSyntax fecha_salida;
+    private Timestamp fecha_salida;
 
     @Column(name = "fecha_llegada", nullable = false)
-    private DateTimeSyntax fecha_llegada;
+    private Timestamp fecha_llegada;
 
     @Column(name = "duracion", nullable = false)
     private Integer duracion;
 
     @Column(name = "precio", nullable = false)
-    private DecimalFormat precio;
+    private Float precio;
 
     @ManyToOne
     @JoinColumn(name = "aerolinea_idaerolinea")
