@@ -45,9 +45,10 @@ public class InicioController {
 
         if (optUser.isPresent()) {
             User user1 = optUser.get();
-            redirectAttributes.addAttribute("iduser",user1.getIdUser());
+            redirectAttributes.addAttribute("iduser", user1.getIdUser());
             return "redirect:/home";
-        } else {
+        }
+        else {
             return "redirect:/inicio";
         }
     }

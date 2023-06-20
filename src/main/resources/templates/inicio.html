@@ -14,11 +14,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-    <style>
-        body {
-            background-image: url('static/fondo.jpg')
-        }
-    </style>
     <title >Teletravel</title>
 </head>
 <body>
@@ -29,11 +24,11 @@
             <div class="col-6 card mt-5 bg-black">
 
                 <div class="card-body aqua-gradient">
-                    <img th:src="@{'/logo.png'}"alt="imagenLogo" class="img-fluid rounded-circle w-50" >
-                    <h3 class="text-white mt-2">Bienvenido a Teletravel</h3>
-                    <form th:action="@{/validarusuario}" method="post">
-                    <input type="" name="email" class="form-control mt-3" placeholder="Correo">
-                    <input type="" name="password" class="form-control mt-3" placeholder="Contraseña">
+                    <img id="imagen1" th:src="@{'img/logo.png'}"alt="imagenLogo" class="img-fluid rounded-circle w-50" >
+                    <h3 id="texto1" class="text-white mt-2">Bienvenido a Teletravel</h3>
+                    <form th:action="@{/validarusuario}" method="post" onsubmit="return validarInicioSesion()">
+                    <input type="email" id="correo" name="email" class="form-control mt-3" placeholder="Correo">
+                    <input type="password" id="contrasena" name="password" class="form-control mt-3" placeholder="Contraseña">
 
                     <div class="row">
                         <div class="col-3"></div>
@@ -44,15 +39,236 @@
                             </div>
                         </div>
 
+                        <!--Mensaje de Error por JQUERY-->
+                        <div class="invalid-feedback" style="display:none;margin-bottom: 10px;">Debe llenar los campos</div>
+
                         <div class="col-3"></div>
                     </div>
                     </form>
                 </div>
+
+                <!-- Al dar click a este boton , a partir de la funcion "onclick" ,
+                se cambiará el texto del elemento con id "texto1" -->
+                <button onclick='document.getElementById("texto1").innerHTML="<h3>Texto de Reemplazo 2<h3>"' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Cambiar Texto</button>
+
+                <button onclick='cambiarTexto()' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Cambiar Texto 2</button>
+
+                <button id="cambiarTextoBtn" class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Cambiar Texto 3</button>
+
+                <!-- cambiar la imagen pequeña -->
+                <button onclick='document.getElementById("imagen1").src="img/logo.png"' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Cambiar a Imagen1</button>
+
+                <!-- cambiar la imagen pequeña -->
+                <button onclick='document.getElementById("imagen1").src="img/fondo.jpg"' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Cambiar a Imagen2</button>
+
+                <button onclick='alert("prueba alerta")' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Mostrar Alerta</button>
+
+                <button onclick='alert(persona1.nombreCompleto())' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Mostrar Nombre en Alerta</button>
+
+                <button id="addBtn" class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                    Agregar Botones</button>
+
+            </div>
             </div>
             <div class="col-3">
             </div>
         </div>
     </div>
+
+
+    <!-- JavaScript-->
+    <script>
+
+        var elemento1 = document.getElementById("texto1");
+        //Imprimir en consola el elemento que seleccionamos por su ID.
+        console.log(elemento1)
+        /*Javascript permite reemplazar el texto o info de un
+        elemento que tengamos acceso, mediante el comando innerHTML.*/
+        elemento1.innerHTML="<h3>Texto de Reemplazo</h3>";
+
+
+        //Para Cambiar el src de una imagen
+        document.getElementById("imagen1").src = 'img/fondo.jpg';
+        //NOTA: SI LA IMAGEN ESTÁ DIRECTAMENTE EN STATIC , SE COLOCA DE FRENTE EL NOMBRE
+        //SINO SE COLOCA LA CARPETA/NOMBRE DE IMAGEN.
+
+
+        //Definicion de funciones
+        function cambiarTexto(){
+            document.getElementById("texto1").innerHTML="<h3>Texto de Reemplazo 3</h3>";
+        }
+
+        //Creación de Arreglos
+
+        //vacio
+        var arreglo1 = []
+
+        //lleno
+        var arreglo2 =["hola1","hola2","hola3"]
+
+        var arreglo3 = document.getElementsByClassName("btn btn-outline-primary mt-4 mb-2 rounded-pill");
+
+        //imprimir en consola (inspector de elementos)
+        console.log(arreglo3)
+
+        console.log(arreglo3[0])
+
+        //Definicion de Objeto - "COMO formato JSON"
+
+        var persona1={
+            nombre:"CHRISTIAN",
+            apellido: "GONZALES",
+            dni:"70298682",
+            ocupacion:"Ingeniero de Tele , DESARROLLADOR BACKEND Y ANALISTA DE DATOS",
+            nombreCompleto: function (){
+                return this.nombre+ " " + this.apellido;
+            }
+
+        }
+
+        //Agregar un atributo a un objeto
+        persona1.edad= 22;
+
+        //imprimimos el objeto
+        console.log(persona1)
+
+
+        //Validacion de Formulario
+
+        function validarInicioSesion(){
+            var correo = document.getElementById("correo").value
+            var contrasena = document.getElementById("contrasena").value
+
+            if( correo == null || contrasena==null){
+                //alert("El correo y contraseña no puden ser nulos")
+                return false;
+            }else{
+                return "redirect: /validarusuario"
+            }
+        }
+
+    </script>
+
+    <!--********************************** JQUERY ***********************************
+    /* Esta librería nos facilita la ardua tarea de manipular los elementos del DOM de HTML
+    que hasta ahora habíamos visto cómo hacerlo con JavaScript.
+
+    Entre sus diversas funcionalidades permite:
+    1.simplificar la manera de interactuar con los documentos HTML
+    2.Manipul El árbol DOM
+    3.manejar eventos
+    4.desarrollar animaciones
+    5.agregar interacción con la técnica AJAX a páginas web */
+
+    Para utilizar la librería se puede descargar de la página de jQuery o se puede utilizar el CDN. -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            //obtener elementos
+
+            //Por ID
+            var elemento1 = $("#texto1");
+            //Por clase (la clase tbm puede tener nombre propio
+            var elemento2= $(".btn btn-outline-primary mt-4 mb-2 rounded-pill");
+
+            //Simil Para Funciones en JQUERY
+
+
+            //JavaScript
+            /*<button onclick='cambiarTexto()' class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+                Cambiar Texto 2</button>
+
+            //funcion
+            function cambiarTexto(){
+            document.getElementById("texto1").innerHTML="<h3>Texto de Reemplazo 3</h3>";
+            } */
+
+            //JQUERY
+
+            /*<button id="cambiarTextoBtn" class="btn btn-outline-primary mt-4 mb-2 rounded-pill">
+               Cambiar Texto 3</button>*/
+
+            $("#cambiarTextoBtn").click(function (){
+                $("#texto1").html("<h3>Texto de Reemplazo 4</h3>");
+            });
+
+            /*Ejm2
+            Se tiene un botón que agrega más botones.
+            Y Los nuevos botones van a tener la clase changeBg, para cambiar el fondo.
+             */
+
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+            $("#addBtn").click(function () {
+                //cuando se hace click al boton con id="addBtn"
+                //entonces se agregará con "append" un boton de clase "changeBg" para cambiar
+                //el color de fondo de la pagina
+                $("body").append('<button class="changeBg">Cambiar fondo</button>');
+            });
+
+            /*$(".changeBg").click(function () {
+                //cuando se hace en este boton de clase "changeBg" (por eso esta con punto .( ya que # es para ID)
+                //entonces se modificará el color de fondo de la pagina , invocando la funcion que definimos
+                //getRandomcColor() y la funcion "css" que modificará la pagina
+                //el color de fondo de la pagina
+                $("body").css('background-color', getRandomColor());
+            }); */
+
+            /*Pero al dar click a los nuevos botonos para cambiar el color de fondo NO pasa NADA
+            Esto se debe a que los elementos agregados dinámicamente tienen la clase “changeBg” y ésta clase está funcionando con el evento click(),
+            el cual sólo responde a los elementos iniciales del DOM (no a los agregados dinámicamente).
+
+            En caso se requiera manipular elementos agregados dinámicamente al DOM (como el ejemplo),
+            se debe usar la delegación de eventos por medio de la ""función on()"", la cual reconoce a los elementos agregados dinámicamente. */
+
+            $("body").on("click",".changeBg",function () {
+               //cuando se hace en este boton de clase "changeBg" (por eso esta con punto .( ya que # es para ID)
+               //entonces se modificará el color de fondo de la pagina , invocando la funcion que definimos
+               //getRandomcColor() y la funcion "css" que modificará la pagina
+               //el color de fondo de la pagina
+               $("body").css('background-color', getRandomColor());
+           });
+
+
+            //Validacion de Formularios
+            $("form").submit(function (event) {
+                event.preventDefault();
+                //Para validar usamos la funcion val().
+                var correo = $("#correo").val();
+                var contrasena = $("#contrasena").val();
+
+                if ((correo != "") && (contrasena  != "")) {
+                    //si no son nulos entonces retonramos
+                    return "redirect: /validarusuario"
+                } else {
+                    //sino , se envia el mensaje de error
+                    $(".invalid-feedback").show(500).delay(1000).hide(500);
+                }
+            });
+
+
+        });
+    </script>
+
+
+
 </body>
 
 </html>
